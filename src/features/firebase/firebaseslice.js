@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { firebase } from "../../library/firebase";
+import  firebase  from "../../library/firebase";
 
 const initialState = {
   db: firebase,
@@ -11,6 +11,5 @@ export const firebaseSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {},
 });
-
 
 export default firebaseSlice.reducer;

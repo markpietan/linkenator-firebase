@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
 import "./App.css";
 import * as ROUTES from "./constant/routes";
+import 'semantic-ui-css/semantic.min.css'
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 const HOME = React.lazy(() => import("./pages/home"));
