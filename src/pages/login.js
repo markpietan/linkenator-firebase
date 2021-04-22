@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import useAuth from "./../Hooks/useAuth"
 import { Button, Form, Icon, Grid, Header, Segment } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import {useHistory} from "react-router-dom"
 import {HOME} from "./../constant/routes"
-import firebase from "../library/firebase";
+
 
 const LOGIN = () => {
   const [passWord, setpassWord] = useState("");
   const [email, setEmail] = useState("");
   const history = useHistory()
+ 
   const db = useSelector((state) => {
     return state.firebase.db;
   });
