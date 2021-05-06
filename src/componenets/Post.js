@@ -1,6 +1,7 @@
 import React from "react";
 import { Segment, Rating, Icon, Header } from "semantic-ui-react";
 import "./Post.css";
+import {formatDistance} from "date-fns"
 
 const Post = ({userName, dateCreated, linkText}) => {
   return (
@@ -18,7 +19,7 @@ const Post = ({userName, dateCreated, linkText}) => {
           <Rating icon="heart" defaultRating={1} maxRating={1} />
         </div>
         <div className="post_rating">
-          <p>{dateCreated}</p>
+          <p>{formatDistance(dateCreated, Date.now())} ago</p>
           <div>
             <Icon name="angle up"></Icon>
             <Icon name="angle down"></Icon>

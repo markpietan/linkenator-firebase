@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
-import { Button, Input, Form } from "semantic-ui-react";
+import { Button, Input, Form, Placeholder } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import Post from "./Post";
+import "./PostList.css";
 
 import { addLink, getRecentLinks } from "./../services/firebase";
 
@@ -21,10 +22,24 @@ const PostList = () => {
   }, []);
 
   async function onsubmit() {
-    await addLink(loggedInUser.uid, linkText);
+    const docId = await addLink(
+      loggedInUser.uid,
+      linkText,
+      loggedInUser.displayName
+    );
+    setlinkList([
+      {
+        userId: loggedInUser.uid,
+        userName: loggedInUser.displayName,
+        dateCreated: Date.now(),
+        link: linkText,
+        docId,
+      },
+      ...linkList,
+    ]);
   }
   return (
-    <section>
+    <section id="postList">
       <Form
         onSubmit={(e) => {
           onsubmit();
@@ -40,16 +55,25 @@ const PostList = () => {
         ></Input>
         <Button type="submit">Add link</Button>
       </Form>
-      {linkList?.map((singleLink) => {
-        return (
-          <Post
-            key={singleLink.docId}
-            userName=""
-            dateCreated={singleLink.dateCreated}
-            linkText={singleLink.link}
-          ></Post>
-        );
-      })}
+      {linkList === null ? (
+        <>
+          {" "}
+          {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => {
+            return <Placeholder className="placeHolder"></Placeholder>;
+          })}
+        </>
+      ) : (
+        linkList.map((singleLink) => {
+          return (
+            <Post
+              key={singleLink.docId}
+              userName={singleLink.userName}
+              dateCreated={singleLink.dateCreated}
+              linkText={singleLink.link}
+            ></Post>
+          );
+        })
+      )}
     </section>
   );
 };
