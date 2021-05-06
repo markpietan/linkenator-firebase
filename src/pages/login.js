@@ -62,7 +62,7 @@ const LOGIN = () => {
               }}
             />
 
-            <Button color="teal" fluid size="large">
+            <Button type= "submit" color="teal" fluid size="large">
               Sign Up
             </Button>
           </Segment>

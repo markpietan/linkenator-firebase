@@ -1,0 +1,31 @@
+.post {
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.post_header {
+  width: 100%;
+  text-align: center;
+}
+
+.post_like {
+  display: flex;
+  width: 50%;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.post_rating {
+  display: flex;
+  width: 50%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.post p{
+    margin: 0;
+}

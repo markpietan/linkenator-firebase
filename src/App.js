@@ -1,10 +1,11 @@
 import React, { Suspense } from "react";
 import useAuth from "./Hooks/useAuth"
+import 'semantic-ui-css/semantic.min.css'
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
 import "./App.css";
 import * as ROUTES from "./constant/routes";
-import 'semantic-ui-css/semantic.min.css'
+
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import NavBar from "./../src/componenets/NavBar"
 
@@ -14,6 +15,18 @@ const LOGIN = React.lazy(() => import("./pages/login"));
 
 function App() {
   useAuth()
+  // const db = useSelector((state) => {
+  //   return state.firebase.db;
+  // });
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   const unsubscribe = firebase.auth().onAuthStateChanged((changedUser) => {
+  //     dispatch(setUser({ user: changedUser }));
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [dispatch]);
   return (
 
     <BrowserRouter>

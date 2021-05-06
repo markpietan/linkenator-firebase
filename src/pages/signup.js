@@ -105,6 +105,7 @@ email:
 userId:
 profileImage:  
 dateCreated: 
+savedLinks:
 }
 
 
@@ -113,7 +114,7 @@ links collection
  name:
  userId:
  likes:
- comments:
+ 
 
 }
 
