@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Post from "./Post";
 import "./PostList.css";
 
-import { addLink, getRecentLinks } from "./../services/firebase";
+import { addLink, getRecentLinks, getNextTenLinks } from "./../services/firebase";
 
 const PostList = () => {
   const loggedInUser = useSelector((store) => {
@@ -12,7 +12,7 @@ const PostList = () => {
   });
   const [linkText, setlinkText] = useState("");
   const [linkList, setlinkList] = useState(null);
-
+  const [pageBottom, setpageBottom] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const recentLinks = await getRecentLinks();
@@ -21,11 +21,37 @@ const PostList = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const checkBottom = () => {
+      console.log("scroll");
+      if (
+        window.innerHeight + window.scrollY >=
+        document.getElementById("root").offsetHeight
+      ) {
+        setpageBottom(true);
+      }
+    };
+    window.addEventListener("scroll", checkBottom);
+    return () => {
+      window.removeEventListener("scroll", checkBottom);
+    };
+  }, []);
+
+  useEffect(()=> {
+   async function getMoreLinks() {
+    getNextTenLinks(linkList[linkList.length-1].docId)
+   }
+   if (pageBottom) {
+     getMoreLinks()
+   }
+  },[pageBottom])
+
   async function onsubmit() {
     const docId = await addLink(
       loggedInUser.uid,
       linkText,
-      loggedInUser.displayName
+      loggedInUser.displayName,
+      loggedInUser.photoURL
     );
     setlinkList([
       {
@@ -70,6 +96,7 @@ const PostList = () => {
               userName={singleLink.userName}
               dateCreated={singleLink.dateCreated}
               linkText={singleLink.link}
+              photoURL={singleLink.userPhoto}
             ></Post>
           );
         })

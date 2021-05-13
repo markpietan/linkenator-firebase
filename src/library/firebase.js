@@ -1,5 +1,5 @@
 import firebaseapp from "firebase/app";
-
+import {seedDateBase} from "./../seed.js"
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
 
@@ -14,6 +14,7 @@ const firebaseConfig = {
   };
 
 const firebase = firebaseapp.initializeApp(firebaseConfig)
+// seedDateBase(firebase)
 console.log(firebase)
 export default firebase
 

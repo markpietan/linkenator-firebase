@@ -1,5 +1,3 @@
-import firebase from "./library/firebase";
-
 const peopleArray = [
   {
     photoURL: "https://randomuser.me/api/portraits/men/17.jpg",
@@ -24,27 +22,39 @@ const peopleArray = [
   },
 ];
 
-const randomLinks = ["www.google.com", "www.facebook.com", "www.bing.com", "www.instagram.com", "www.gmail.com"]
+const randomLinks = [
+  "www.google.com",
+  "www.facebook.com",
+  "www.bing.com",
+  "www.instagram.com",
+  "www.gmail.com",
+];
 
-const seedDateBase = async () => {
+export const seedDateBase = async (firebase) => {
   try {
-      for (let index = 0; index < peopleArray.length; index++) {
-          const element = peopleArray[index];
-          await firebase.firestore().collection("users").add({
-            userName: element.userName,
-            email: element.email,
-            userId: index,
-            photoURL: element.photoURL,
-            dateCreated: Date.now(),
-          });
-          await firebase.firestore().collection("link").add({
-            userId: index,
-            userName: element.userName,
-            link: 
-            dateCreated: Date.now(),
-            likes: [],
-          });
+    for (let index = 0; index < peopleArray.length; index++) {
+      const element = peopleArray[index];
+      await firebase.firestore().collection("users").add({
+        userName: element.userName,
+        email: element.email,
+        userId: index,
+        photoURL: element.photoURL,
+        dateCreated: Date.now(),
+      });
+      for (let index2 = 0; index2 < 4; index2++) {
+        const randomIndex = Math.floor(Math.random() * randomLinks.length);
+        const randomLink = randomLinks[randomIndex];
+        await firebase.firestore().collection("link").add({
+          userId: index,
+          userName: element.userName,
+          link: randomLink,
+          dateCreated: Date.now(),
+          likes: [],
+          userPhoto: element.photoURL,
+        });
       }
+      console.log("Done seeding database");
+    }
   } catch (error) {
     console.log(error);
   }
