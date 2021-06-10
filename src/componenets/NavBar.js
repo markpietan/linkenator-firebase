@@ -1,8 +1,10 @@
-import { Menu, Image } from "semantic-ui-react";
+import { Menu, Image, Input } from "semantic-ui-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { HOME, LOG_IN, SIGN_UP } from "./../constant/routes";
+import SearchBar from "./SearchBar"
+import "./NavBar.css"
+import { HOME, LOG_IN, PROFILE, SIGN_UP } from "./../constant/routes";
 
 const NavBar = () => {
   const [activeItem, setactiveItem] = useState("");
@@ -12,11 +14,19 @@ const NavBar = () => {
   });
   return (
     <div>
-      <Menu pointing secondary>
+      <Menu className= "navBar" color="green" inverted pointing fixed= "top">
         <Link to={HOME}>
           <Menu.Item
             name="home"
+            color= "green"
             active={activeItem === "home"}
+            onClick={handleItemClick}
+          />
+        </Link>
+        <Link to={`/profile/${loggedInUser?.displayName}`}>
+          <Menu.Item
+            name="profile"
+            active={activeItem === "profile"}
             onClick={handleItemClick}
           />
         </Link>
@@ -38,6 +48,11 @@ const NavBar = () => {
             />
           </Link>
         ) : null}
+        <Menu.Menu position="right">
+          <Menu.Item>
+          <SearchBar></SearchBar>
+          </Menu.Item>
+        </Menu.Menu>
         <Menu.Menu position="right">
           <Menu.Item
             name="logout"

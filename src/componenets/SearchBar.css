@@ -1,0 +1,11 @@
+#searchResults {
+    position:absolute;
+    background-color: whitesmoke;
+    z-index: 1;
+    top: 2rem;
+}
+
+#searchResults .itemPadding {
+padding: 1rem;
+color :#21BA45;
+}

@@ -3,6 +3,7 @@ import {seedDateBase} from "./../seed.js"
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyBMsPH_ERKd4bRB3fEEChaPHC1o5qyoe5o",
     authDomain: "linkenator-firebase.firebaseapp.com",

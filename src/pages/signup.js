@@ -31,6 +31,7 @@ const SIGNUP = () => {
         userId: createdUser.user.uid,
         photoURL: "https://www.computerhope.com/jargon/g/guest-user.jpg",
         dateCreated: Date.now(),
+        favorites: []
       });
       console.log("User successfully created an Account");
       history.push(LOGIN)
@@ -83,7 +84,7 @@ const SIGNUP = () => {
               type="username"
               value={userName}
               onChange={(e) => {
-                setuserName(e.target.value);
+                setuserName(e.target.value.toLowerCase());
               }}
             />
             <Button color="teal" fluid size="large">
