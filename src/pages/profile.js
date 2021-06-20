@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getUserByUsername, getLinkByUserId } from "../services/firebase";
+import {
+  getUserByUsername,
+  getLinkByUserId,
+  getUserFavorites,
+} from "../services/firebase";
 import { useState } from "react";
 import { formatDistance } from "date-fns";
 import Post from "../componenets/Post";
@@ -12,13 +16,17 @@ import {
   Header,
   Divider,
   Placeholder,
+  Step,
+  Icon,
 } from "semantic-ui-react";
 
 const Profile = () => {
   const [links, setLinks] = useState(null);
+  const [favoriteLinks, setfavoriteLinks] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const { userName } = useParams();
-  console.log(userName)
+  const [pageNumber, setpageNumber] = useState(0);
+  console.log(userName);
   useEffect(() => {
     async function getUserDetails() {
       const response = await getUserByUsername(userName);
@@ -28,14 +36,23 @@ const Profile = () => {
       const userId = userdetails.userId;
 
       const links = await getLinkByUserId(userId);
-        setLinks(links);
+      setLinks(links);
     }
     getUserDetails();
   }, [userName]);
+  useEffect(() => {
+    async function getUserFavoritedLinks() {
+      const response = await getUserFavorites(userDetails.favorites);
+      setfavoriteLinks(response);
+    }
 
-  useEffect(()=>{
- document.title= `Linkerator - ${userName}`
-  },[])
+    if (userDetails) {
+      getUserFavoritedLinks();
+    }
+  }, [userName, userDetails]);
+  useEffect(() => {
+    document.title = `Linkerator - ${userName}`;
+  }, []);
   return (
     <Container>
       <Grid columns="equal" divided id="headerGrid">
@@ -60,6 +77,34 @@ const Profile = () => {
         </Grid.Column>
       </Grid>
       <Divider></Divider>
+      <div className= "steps">
+        <Step.Group>
+          <Step
+            active={pageNumber === 0}
+            onClick={() => {
+              setpageNumber(0);
+            }}
+          >
+            <Icon name="linkify" />
+            <Step.Content>
+              <Step.Title>User's Links</Step.Title>
+              <Step.Description>Links made by {userName}</Step.Description>
+            </Step.Content>
+          </Step>
+          <Step
+            active={pageNumber === 1}
+            onClick={() => {
+              setpageNumber(1);
+            }}
+          >
+            <Icon name="heart" />
+            <Step.Content>
+              <Step.Title>User's Favorite Links</Step.Title>
+              <Step.Description>Links favorited by {userName}</Step.Description>
+            </Step.Content>
+          </Step>
+        </Step.Group>
+      </div>
       <Grid id="linkGrid" centered>
         <Grid.Column>
           {links === null ? (
@@ -70,18 +115,33 @@ const Profile = () => {
             </div>
           ) : (
             <div className="center">
-              {links?.map((e) => {
-                return (
-                  <Post
-                    key={e.docId}
-                    docId={e.docId}
-                    userName={e.userName.toLowerCase()}
-                    dateCreated={e.dateCreated}
-                    photoURL={e.userPhoto}
-                    linkText={e.link}
-                  ></Post>
-                );
-              })}
+              {pageNumber === 0
+                ? links?.map((e) => {
+                    return (
+                      <Post
+                        key={e.docId}
+                        docId={e.docId}
+                        userName={e.userName.toLowerCase()}
+                        dateCreated={e.dateCreated}
+                        photoURL={e.userPhoto}
+                        linkText={e.link}
+                        likes={e.likes}
+                      ></Post>
+                    );
+                  })
+                : favoriteLinks?.map((e) => {
+                    return (
+                      <Post
+                        key={e.docId}
+                        docId={e.docId}
+                        userName={e.userName.toLowerCase()}
+                        dateCreated={e.dateCreated}
+                        photoURL={e.userPhoto}
+                        linkText={e.link}
+                        likes={e.likes}
+                      ></Post>
+                    );
+                  })}
             </div>
           )}
         </Grid.Column>

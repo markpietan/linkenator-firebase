@@ -133,6 +133,7 @@ const PostList = () => {
               dateCreated={singleLink.dateCreated}
               linkText={singleLink.link}
               photoURL={singleLink.userPhoto}
+              likes={singleLink.likes}
             ></Post>
           );
         })

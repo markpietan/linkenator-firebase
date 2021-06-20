@@ -1,5 +1,6 @@
 import PostList from "../componenets/PostList";
 
+
 const Home = () => {
   return (
     <main>

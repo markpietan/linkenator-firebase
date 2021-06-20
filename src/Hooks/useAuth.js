@@ -24,6 +24,7 @@ const useAuth = () => {
                 email: changedUser.email,
                 uid: changedUser.uid,
                 docId: response.docId,
+                favorites: response.favorites
               },
             })
           );

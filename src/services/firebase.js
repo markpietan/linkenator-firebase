@@ -1,5 +1,7 @@
 import firebase from "./../library/firebase";
 import firebaseapp from "firebase/app";
+// firebase.firestore().collection("link").where()
+// https://firebase.googleblog.com/2019/11/cloud-firestore-now-supports-in-queries.html
 
 export async function addLink(userId, link, userName, userPhoto) {
   const response = await firebase.firestore().collection("link").add({
@@ -55,7 +57,58 @@ export async function userSearched(searchText) {
   });
   return peopleData;
 }
+export async function userLike(userDocId, linkDocId) {
+  const response = await firebase
+    .firestore()
+    .collection("link")
+    .doc(linkDocId)
+    .get();
+  console.log(response);
+  const linkData = response.data();
 
+  let userFound = false;
+  linkData.likes.forEach((element) => {
+    if (element.docId === userDocId) {
+      element.likesStatus = true;
+      userFound = true;
+    }
+  });
+  if (!userFound) {
+    linkData.likes.push({
+      docId: userDocId,
+      likesStatus: true,
+    });
+  }
+  await firebase.firestore().collection("link").doc(linkDocId).update({
+    likes: linkData.likes,
+  });
+  console.log("Added like");
+}
+export async function userDisike(userDocId, linkDocId) {
+  const response = await firebase
+    .firestore()
+    .collection("link")
+    .doc(linkDocId)
+    .get();
+  const linkData = response.data();
+  let userFound = false;
+  linkData.likes.forEach((element) => {
+    if (element.docId === userDocId) {
+      element.likesStatus = false;
+      userFound = true;
+    }
+  });
+  if (!userFound) {
+    linkData.likes.push({
+      docId: userDocId,
+      likesStatus: false,
+    });
+  }
+  await firebase.firestore().collection("link").doc(linkDocId).update({
+    likes: linkData.likes,
+  });
+  console.log("Added dislike");
+}
 export async function getRecentLinks() {
   const querySnapshot = await firebase
     .firestore()
@@ -106,12 +159,46 @@ export async function getUserByUsername(userName) {
 }
 
 export async function addingToFavorites(userDocId, favoriteLinkDocId) {
-  const response = await firebase
+  await firebase
     .firestore()
     .collection("users")
     .doc(userDocId)
     .update({
-      favorites: firebaseapp.firestore.FieldValue.arrayUnion(favoriteLinkDocId)
+      favorites: firebaseapp.firestore.FieldValue.arrayUnion(favoriteLinkDocId),
     });
-    console.log("Successfully added to favorites")
+  console.log("Successfully added to favorites");
 }
+
+export async function removingFromFavorites(userDocId, removeLinkDocId) {
+  await firebase
+    .firestore()
+    .collection("users")
+    .doc(userDocId)
+    .update({
+      favorites: firebaseapp.firestore.FieldValue.arrayRemove(removeLinkDocId),
+    });
+  console.log("Successfully removed from favorites");
+}
+
+export async function getUserFavorites(userFavoriteArray) {
+  const batchesArray = [];
+  while (userFavoriteArray.length) {
+    const batch = userFavoriteArray.splice(0, 10);
+    const response = await firebase
+      .firestore()
+      .collection("link")
+      .where(firebaseapp.firestore.FieldPath.documentId(), "in", batch)
+      .get();
+
+    const batchData = response.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        docId: doc.id,
+      };
+    });
+    batchesArray.push(...batchData);
+  }
+  return batchesArray;
+}
+
+// myCollection.where(firestore.FieldPath.documentId(), 'in', ["123","456","789"])
