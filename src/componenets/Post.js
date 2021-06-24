@@ -27,12 +27,14 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   const [isFavorited, setisFavorited] = useState(
     user?.favorites?.includes(docId)
   );
+  const [loading, setLoading] = useState(false);
+
   const [userLiked, setuserLiked] = useState(null);
   const [numberOfLikes, setnumberOfLikes] = useState(0);
   useEffect(() => {
     getTotalNumberOfLikes();
     getUserLikes();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setisFavorited(user?.favorites?.includes(docId));
@@ -49,12 +51,35 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
     }
   }
   async function onLike() {
+    setLoading(true);
     const response = await userLike(usersDocId, docId);
+    updateUserVote(true);
+    setLoading(false);
   }
   async function onDislike() {
+    setLoading(true);
     const response = await userDisike(usersDocId, docId);
-  }
 
+    updateUserVote(false);
+    setLoading(false);
+  }
+  function updateUserVote(voteBoolean) {
+    let userFound = false
+    likes.forEach((element) => {
+      if (element.docId === usersDocId) {
+        element.likesStatus = voteBoolean;
+        console.log("updated likes status");
+        userFound = true
+      } 
+    });
+    if (!userFound) {
+      likes.push({ docId: usersDocId, likesStatus: voteBoolean });
+      console.log("added new vote");
+    }
+    console.log({ likes });
+    getTotalNumberOfLikes();
+    getUserLikes();
+  }
   function getTotalNumberOfLikes() {
     let sum = 0;
     likes.forEach((element) => {
@@ -63,13 +88,23 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
     setnumberOfLikes(sum);
   }
   function getUserLikes() {
+    console.log({likes})
+    console.log({usersDocId})
     likes.forEach((element) => {
       if (element.docId === usersDocId) {
         element.likesStatus ? setuserLiked(true) : setuserLiked(false);
       }
     });
   }
-
+  let upVoteColor = userLiked === false ? "grey" : "red";
+  let downVoteColor = userLiked === true ? "grey" : "red";
+  if (userLiked === null) {
+    upVoteColor = "grey";
+    downVoteColor = "grey";
+    console.log("Hello, inside if statement");
+  }
+  console.log(upVoteColor);
+  console.log(downVoteColor);
   return (
     <>
       <Segment className="post" size="tiny" padded>
@@ -105,15 +140,19 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
               onClick={() => {
                 onLike();
               }}
-              name="arrow alternate circle up"
-              color={userLike === null ? "grey" : userLike === true ? "red": "grey"}
+              name={loading ? "spinner" : "arrow alternate circle up"}
+              color={upVoteColor}
+              loading={loading}
+              disabled={loading}
             ></Icon>
             <Icon
               onClick={() => {
                 onDislike();
               }}
-              name="arrow alternate circle down"
-              color={userLike !== null  && userLike === false ? "red" : "grey"}
+              name={loading ? "spinner" : "arrow alternate circle down"}
+              color={downVoteColor}
+              loading={loading}
+              disabled={loading}
             ></Icon>
           </div>
         </div>

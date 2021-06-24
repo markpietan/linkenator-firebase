@@ -9,6 +9,7 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 import NavBar from "./../src/componenets/NavBar";
 
 const HOME = React.lazy(() => import("./pages/home"));
+const LANDINGPAGE = React.lazy(() => import("./pages/landingPage"));
 const SIGNUP = React.lazy(() => import("./pages/signup"));
 const LOGIN = React.lazy(() => import("./pages/login"));
 const PROFILE = React.lazy(() => import("./pages/profile"));
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route exact path={ROUTES.LOG_IN}>
             <LOGIN></LOGIN>
+          </Route>
+          <Route exact path={ROUTES.LANDINGPAGE}>
+            <LANDINGPAGE></LANDINGPAGE>
           </Route>
           <Route exact path={ROUTES.HOME}>
             <HOME></HOME>
