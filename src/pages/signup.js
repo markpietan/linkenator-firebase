@@ -14,7 +14,6 @@ const SIGNUP = () => {
   const db = useSelector((state) => {
     return state.firebase.db;
   });
-  console.log(db);
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -33,7 +32,6 @@ const SIGNUP = () => {
         dateCreated: Date.now(),
         favorites: []
       });
-      console.log("User successfully created an Account");
       history.push(LOGIN)
     } catch (error) {
       console.error(error);

@@ -44,7 +44,6 @@ const PostList = () => {
 
   useEffect(() => {
     const checkBottom = () => {
-      console.log( document.getElementById("root").offsetHeight)
       if (
         endOfContent === false && 
         window.innerHeight + window.scrollY >=
@@ -71,7 +70,6 @@ const PostList = () => {
     }
     if (pageBottom === true && linkList?.length > 0) {
       getMoreLinks();
-      console.log("reached page bottom");
       dispatch(showLoader());
     }
   }, [pageBottom]);

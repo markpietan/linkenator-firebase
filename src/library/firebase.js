@@ -16,7 +16,6 @@ const firebaseConfig = {
 
 const firebase = firebaseapp.initializeApp(firebaseConfig)
 // seedDateBase(firebase)
-console.log(firebase)
 export default firebase
 
 

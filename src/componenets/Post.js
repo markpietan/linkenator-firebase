@@ -20,10 +20,8 @@ import { useSelector } from "react-redux";
 
 const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   const user = useSelector((store) => {
-    console.log(store);
     return store?.userLoggedIN.user;
   });
-  console.log(likes);
   const [isFavorited, setisFavorited] = useState(
     user?.favorites?.includes(docId)
   );
@@ -41,7 +39,6 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   }, [user]);
   const usersDocId = user?.docId;
   async function onRate() {
-    console.log(usersDocId, docId);
     if (isFavorited) {
       const response = await removingFromFavorites(usersDocId, docId);
       setisFavorited(false);
@@ -68,15 +65,12 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
     likes.forEach((element) => {
       if (element.docId === usersDocId) {
         element.likesStatus = voteBoolean;
-        console.log("updated likes status");
         userFound = true
       } 
     });
     if (!userFound) {
       likes.push({ docId: usersDocId, likesStatus: voteBoolean });
-      console.log("added new vote");
     }
-    console.log({ likes });
     getTotalNumberOfLikes();
     getUserLikes();
   }
@@ -88,8 +82,6 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
     setnumberOfLikes(sum);
   }
   function getUserLikes() {
-    console.log({likes})
-    console.log({usersDocId})
     likes.forEach((element) => {
       if (element.docId === usersDocId) {
         element.likesStatus ? setuserLiked(true) : setuserLiked(false);
@@ -101,10 +93,7 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   if (userLiked === null) {
     upVoteColor = "grey";
     downVoteColor = "grey";
-    console.log("Hello, inside if statement");
   }
-  console.log(upVoteColor);
-  console.log(downVoteColor);
   return (
     <>
       <Segment className="post" size="tiny" padded>

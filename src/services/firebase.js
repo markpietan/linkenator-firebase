@@ -21,7 +21,6 @@ export async function getNextTenLinks(lastLinkDocID) {
     .collection("link")
     .doc(lastLinkDocID)
     .get();
-  console.log(lastDoc);
   const newLinks = await firebase
     .firestore()
     .collection("link")
@@ -29,14 +28,12 @@ export async function getNextTenLinks(lastLinkDocID) {
     .limit(10)
     .startAfter(lastDoc)
     .get();
-  console.log(newLinks);
   const transformedLinks = newLinks.docs.map((doc) => {
     return {
       ...doc.data(),
       docId: doc.id,
     };
   });
-  console.log(transformedLinks);
   return transformedLinks;
 }
 export async function userSearched(searchText) {
@@ -63,7 +60,6 @@ export async function userLike(userDocId, linkDocId) {
     .collection("link")
     .doc(linkDocId)
     .get();
-  console.log(response);
   const linkData = response.data();
 
   let userFound = false;
@@ -82,7 +78,6 @@ export async function userLike(userDocId, linkDocId) {
   await firebase.firestore().collection("link").doc(linkDocId).update({
     likes: linkData.likes,
   });
-  console.log("Added like");
 }
 export async function userDisike(userDocId, linkDocId) {
   const response = await firebase
@@ -107,7 +102,6 @@ export async function userDisike(userDocId, linkDocId) {
   await firebase.firestore().collection("link").doc(linkDocId).update({
     likes: linkData.likes,
   });
-  console.log("Added dislike");
 }
 export async function getRecentLinks() {
   const querySnapshot = await firebase
@@ -154,7 +148,6 @@ export async function getUserByUsername(userName) {
       docId: doc.id,
     };
   });
-  //   console.log(userData)
   return userData;
 }
 
@@ -166,7 +159,6 @@ export async function addingToFavorites(userDocId, favoriteLinkDocId) {
     .update({
       favorites: firebaseapp.firestore.FieldValue.arrayUnion(favoriteLinkDocId),
     });
-  console.log("Successfully added to favorites");
 }
 
 export async function removingFromFavorites(userDocId, removeLinkDocId) {
@@ -177,7 +169,6 @@ export async function removingFromFavorites(userDocId, removeLinkDocId) {
     .update({
       favorites: firebaseapp.firestore.FieldValue.arrayRemove(removeLinkDocId),
     });
-  console.log("Successfully removed from favorites");
 }
 
 export async function getUserFavorites(userFavoriteArray) {

@@ -27,7 +27,6 @@ const SearchBar = () => {
   useEffect(() => {
     async function searchUser() {
       const response = await userSearched(debounceText);
-      console.log(response);
       setResults(response);
     }
     if (debounceText !== "") {

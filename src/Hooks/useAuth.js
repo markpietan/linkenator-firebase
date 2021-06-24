@@ -14,8 +14,7 @@ const useAuth = () => {
       .onAuthStateChanged(async (changedUser) => {
         if (changedUser) {
           const [response] = await getUserByUsername(changedUser.displayName);
-          console.log(response);
-          console.log(changedUser);
+         
           await dispatch(
             setUser({
               user: {

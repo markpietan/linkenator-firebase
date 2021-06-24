@@ -14,12 +14,10 @@ const LOGIN = () => {
   const db = useSelector((state) => {
     return state.firebase.db;
   });
-  console.log(db);
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       await db.auth().signInWithEmailAndPassword(email, passWord);
-      console.log("User Signed In");
       history.push(HOME)
     } catch (error) {
       console.error(error);

@@ -53,9 +53,7 @@ export const seedDateBase = async (firebase) => {
           userPhoto: element.photoURL,
         });
       }
-      console.log("Done seeding database");
     }
   } catch (error) {
-    console.log(error);
   }
 };

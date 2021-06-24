@@ -6,6 +6,7 @@ import "./App.css";
 import * as ROUTES from "./constant/routes";
 
 import { Route, Switch, BrowserRouter } from "react-router-dom";
+import {Loader} from "semantic-ui-react"
 import NavBar from "./../src/componenets/NavBar";
 
 const HOME = React.lazy(() => import("./pages/home"));
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense fallback={<Loader></Loader>}>
         <NavBar></NavBar>
         <Switch>
           <Route exact path={ROUTES.SIGN_UP}>

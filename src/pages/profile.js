@@ -26,7 +26,6 @@ const Profile = () => {
   const [userDetails, setUserDetails] = useState(null);
   const { userName } = useParams();
   const [pageNumber, setpageNumber] = useState(0);
-  console.log(userName);
   useEffect(() => {
     async function getUserDetails() {
       const response = await getUserByUsername(userName);
