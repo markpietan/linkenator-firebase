@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Icon, Grid, Header, Segment } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import {useHistory} from "react-router-dom"
-import {LOG_IN} from "./../constant/routes"
-import firebase  from "../library/firebase";
+
 import LOGIN from "./login";
 
 const SIGNUP = () => {

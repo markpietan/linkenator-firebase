@@ -12,7 +12,7 @@ const useAuth = () => {
     const unsubscribe = firebase
       .auth()
       .onAuthStateChanged(async (changedUser) => {
-        if (changedUser) {
+        if (changedUser) { 
           const [response] = await getUserByUsername(changedUser.displayName);
          
           await dispatch(
@@ -27,6 +27,8 @@ const useAuth = () => {
               },
             })
           );
+        } else {
+          await dispatch(setUser({user : null}))
         }
       });
     return () => {

@@ -1,4 +1,4 @@
-import {Button} from "semantic-ui-css"
+import {Button} from "semantic-ui-react"
 
 const LANDINGPAGE = () =>{
 return (

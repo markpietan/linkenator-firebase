@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 5rem;
 }
 
 #postList .placeHolder {
@@ -11,4 +12,11 @@ width: 75%;
 max-width: 75%;
 height: 90px;
 margin-top: 1rem;
+}
+
+#filter {
+display:flex;
+margin-top: 2rem;
+
+
 }

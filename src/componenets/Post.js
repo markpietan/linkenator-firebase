@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Segment,
   Rating,
@@ -32,30 +32,30 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   useEffect(() => {
     getTotalNumberOfLikes();
     getUserLikes();
-  }, [user]);
+  }, [user, getTotalNumberOfLikes, getUserLikes]);
 
   useEffect(() => {
     setisFavorited(user?.favorites?.includes(docId));
-  }, [user]);
+  }, [user, docId]);
   const usersDocId = user?.docId;
   async function onRate() {
     if (isFavorited) {
-      const response = await removingFromFavorites(usersDocId, docId);
+       await removingFromFavorites(usersDocId, docId);
       setisFavorited(false);
     } else {
-      const response = await addingToFavorites(usersDocId, docId);
+      await addingToFavorites(usersDocId, docId);
       setisFavorited(true);
     }
   }
   async function onLike() {
     setLoading(true);
-    const response = await userLike(usersDocId, docId);
+     await userLike(usersDocId, docId);
     updateUserVote(true);
     setLoading(false);
   }
   async function onDislike() {
     setLoading(true);
-    const response = await userDisike(usersDocId, docId);
+     await userDisike(usersDocId, docId);
 
     updateUserVote(false);
     setLoading(false);
@@ -74,6 +74,7 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
     getTotalNumberOfLikes();
     getUserLikes();
   }
+  const getTotalOfLikes setCallback
   function getTotalNumberOfLikes() {
     let sum = 0;
     likes.forEach((element) => {
@@ -112,6 +113,7 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
             <Image src={photoURL} avatar />
           </Link>
           <Rating
+           disabled={user === null ? true : false}
             onRate={onRate}
             icon="heart"
             maxRating={1}
@@ -132,7 +134,7 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
               name={loading ? "spinner" : "arrow alternate circle up"}
               color={upVoteColor}
               loading={loading}
-              disabled={loading}
+              disabled={loading || user === null ? true : false}
             ></Icon>
             <Icon
               onClick={() => {
@@ -141,7 +143,7 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
               name={loading ? "spinner" : "arrow alternate circle down"}
               color={downVoteColor}
               loading={loading}
-              disabled={loading}
+              disabled={loading || user === null ? true : false}
             ></Icon>
           </div>
         </div>

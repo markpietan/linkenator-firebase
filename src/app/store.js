@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import userReducer from "../features/user/userSlice"
 import firebaseReducer from '../features/firebase/firebaseslice';
 import loaderReducer from "../features/loader/loaderslice"
+  
+const middleWare = getDefaultMiddleware({
+  serializableCheck: false
+})
 
 export const store = configureStore({
   reducer: {
@@ -11,4 +15,5 @@ export const store = configureStore({
     userLoggedIN: userReducer,
     loader: loaderReducer
   },
+  middleware: middleWare
 });

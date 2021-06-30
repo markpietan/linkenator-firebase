@@ -1,5 +1,5 @@
 import firebaseapp from "firebase/app";
-import {seedDateBase} from "./../seed.js"
+
 import "firebase/firebase-auth";
 import "firebase/firebase-firestore";
 

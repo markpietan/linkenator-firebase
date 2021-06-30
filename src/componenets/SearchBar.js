@@ -1,6 +1,6 @@
 import { Input, List, Image } from "semantic-ui-react";
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { userSearched } from "../services/firebase";
 import { formatDistance } from "date-fns";
 import "./SearchBar.css";
@@ -9,7 +9,7 @@ const SearchBar = () => {
   const [userText, setuserText] = useState("");
   const [results, setResults] = useState(null);
   const [debounceText, setdebounceText] = useState("");
-  const history = useHistory();
+  
 
   useEffect(() => {
     const id = setTimeout(() => {

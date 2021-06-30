@@ -51,7 +51,7 @@ const Profile = () => {
   }, [userName, userDetails]);
   useEffect(() => {
     document.title = `Linkerator - ${userName}`;
-  }, []);
+  }, [userName]);
   return (
     <Container>
       <Grid columns="equal" divided id="headerGrid">
