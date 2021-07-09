@@ -1,11 +1,11 @@
-import { Menu, Image, Input } from "semantic-ui-react";
+import { Menu, Image} from "semantic-ui-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import {signOut} from "../services/firebase"
 import { Link, useHistory } from "react-router-dom";
 import SearchBar from "./SearchBar"
 import "./NavBar.css"
-import { HOME, LOG_IN, PROFILE, SIGN_UP } from "./../constant/routes";
+import { HOME, LOG_IN, SIGN_UP } from "./../constant/routes";
 
 const NavBar = () => {
   const [activeItem, setactiveItem] = useState("");

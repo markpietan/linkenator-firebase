@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import useAuth from "./Hooks/useAuth";
 import "semantic-ui-css/semantic.min.css";
-
+import Footer from "./componenets/Footer"
 import "./App.css";
 import * as ROUTES from "./constant/routes";
 
@@ -49,6 +49,7 @@ function App() {
             <NOTFOUND></NOTFOUND>
           </Route> 
         </Switch>
+        <Footer></Footer>
       </Suspense>
     </BrowserRouter>
   );

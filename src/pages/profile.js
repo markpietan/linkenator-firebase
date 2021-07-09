@@ -108,8 +108,8 @@ const Profile = () => {
         <Grid.Column>
           {links === null ? (
             <div className="center">
-              {[1, 1, 1, 1].map(() => {
-                return <Placeholder className="placeHolder"></Placeholder>;
+              {[1, 1, 1, 1].map((_,index) => {
+                return <Placeholder key= {index} className="placeHolder"></Placeholder>;
               })}
             </div>
           ) : (

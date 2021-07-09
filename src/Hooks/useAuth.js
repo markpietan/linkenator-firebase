@@ -1,20 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setUser } from "../features/user/userSlice";
 import firebase from "./../library/firebase";
 import { getUserByUsername } from "../services/firebase";
 const useAuth = () => {
-  const db = useSelector((state) => {
-    return state.firebase.db;
-  });
   const dispatch = useDispatch();
   useEffect(() => {
     const unsubscribe = firebase
       .auth()
       .onAuthStateChanged(async (changedUser) => {
-        if (changedUser) { 
+        if (changedUser) {
           const [response] = await getUserByUsername(changedUser.displayName);
-         
+
           await dispatch(
             setUser({
               user: {
@@ -23,12 +20,12 @@ const useAuth = () => {
                 email: changedUser.email,
                 uid: changedUser.uid,
                 docId: response.docId,
-                favorites: response.favorites
+                favorites: response.favorites,
               },
             })
           );
         } else {
-          await dispatch(setUser({user : null}))
+          await dispatch(setUser({ user: null }));
         }
       });
     return () => {

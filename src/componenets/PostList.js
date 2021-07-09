@@ -208,8 +208,8 @@ const PostList = () => {
       {linkList === null ? (
         <>
           {" "}
-          {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => {
-            return <Placeholder className="placeHolder"></Placeholder>;
+          {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e, index) => {
+            return <Placeholder key={index} className="placeHolder"></Placeholder>;
           })}
         </>
       ) : (

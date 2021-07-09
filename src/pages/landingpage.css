@@ -1,0 +1,55 @@
+.landingPage {
+margin-top: 3rem
+}
+
+
+.landingPage .ctaButton {
+    /* font-size: 1rem;
+    z-index: 5;
+   position: absolute;
+   top: 35%;
+   width: auto;
+   height: auto;
+   left: 50%;
+   transform: translate(-50%, -50%); */
+}
+
+.landingPage .heroImage {
+    width: 50%;
+}
+
+
+#hero {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+   
+}
+
+#hero .heroTitle{
+    font-size: 4rem;
+}
+
+#featureSection {
+    display:flex;
+    flex-direction: column;
+}
+
+#featureSection .featureSubtitle {
+   font-size: 1.5rem;
+}
+#featureSection .featureTitle {
+    font-size: 2.5rem;
+}
+
+#featureSection .feature {
+    margin-right: auto;
+    display:flex;
+    align-items: center;
+}
+
+#featureSection .feature:nth-child(2){
+    margin-left: auto;
+    margin-right: 0%;
+}

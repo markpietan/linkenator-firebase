@@ -29,6 +29,22 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
 
   const [userLiked, setuserLiked] = useState(null);
   const [numberOfLikes, setnumberOfLikes] = useState(0);
+  const usersDocId = user?.docId;
+  const getTotalNumberOfLikes = useCallback(() => {
+    let sum = 0;
+    likes.forEach((element) => {
+      element.likesStatus ? sum++ : sum--;
+    });
+    setnumberOfLikes(sum);
+  }, [likes]);
+  const getUserLikes = useCallback(() => {
+    likes.forEach((element) => {
+      if (element.docId === usersDocId) {
+        element.likesStatus ? setuserLiked(true) : setuserLiked(false);
+      }
+    });
+  }, [likes, usersDocId]);
+
   useEffect(() => {
     getTotalNumberOfLikes();
     getUserLikes();
@@ -37,10 +53,10 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   useEffect(() => {
     setisFavorited(user?.favorites?.includes(docId));
   }, [user, docId]);
-  const usersDocId = user?.docId;
+
   async function onRate() {
     if (isFavorited) {
-       await removingFromFavorites(usersDocId, docId);
+      await removingFromFavorites(usersDocId, docId);
       setisFavorited(false);
     } else {
       await addingToFavorites(usersDocId, docId);
@@ -49,24 +65,24 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
   }
   async function onLike() {
     setLoading(true);
-     await userLike(usersDocId, docId);
+    await userLike(usersDocId, docId);
     updateUserVote(true);
     setLoading(false);
   }
   async function onDislike() {
     setLoading(true);
-     await userDisike(usersDocId, docId);
+    await userDisike(usersDocId, docId);
 
     updateUserVote(false);
     setLoading(false);
   }
   function updateUserVote(voteBoolean) {
-    let userFound = false
+    let userFound = false;
     likes.forEach((element) => {
       if (element.docId === usersDocId) {
         element.likesStatus = voteBoolean;
-        userFound = true
-      } 
+        userFound = true;
+      }
     });
     if (!userFound) {
       likes.push({ docId: usersDocId, likesStatus: voteBoolean });
@@ -74,21 +90,21 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
     getTotalNumberOfLikes();
     getUserLikes();
   }
-  const getTotalOfLikes setCallback
-  function getTotalNumberOfLikes() {
-    let sum = 0;
-    likes.forEach((element) => {
-      element.likesStatus ? sum++ : sum--;
-    });
-    setnumberOfLikes(sum);
-  }
-  function getUserLikes() {
-    likes.forEach((element) => {
-      if (element.docId === usersDocId) {
-        element.likesStatus ? setuserLiked(true) : setuserLiked(false);
-      }
-    });
-  }
+
+  // function getTotalNumberOfLikes() {
+  //   let sum = 0;
+  //   likes.forEach((element) => {
+  //     element.likesStatus ? sum++ : sum--;
+  //   });
+  //   setnumberOfLikes(sum);
+  // }
+  // function getUserLikes() {
+  //   likes.forEach((element) => {
+  //     if (element.docId === usersDocId) {
+  //       element.likesStatus ? setuserLiked(true) : setuserLiked(false);
+  //     }
+  //   });
+  // }
   let upVoteColor = userLiked === false ? "grey" : "red";
   let downVoteColor = userLiked === true ? "grey" : "red";
   if (userLiked === null) {
@@ -113,7 +129,7 @@ const Post = ({ userName, dateCreated, linkText, photoURL, docId, likes }) => {
             <Image src={photoURL} avatar />
           </Link>
           <Rating
-           disabled={user === null ? true : false}
+            disabled={user === null ? true : false}
             onRate={onRate}
             icon="heart"
             maxRating={1}
