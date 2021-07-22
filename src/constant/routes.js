@@ -1,6 +1,6 @@
 export const SIGN_UP = "/signup"
 export const LOG_IN = "/login"
-export const HOME = "/"
+export const HOME = "/dashboard"
 export const PROFILE = "/profile/:userName"
-export const LANDINGPAGE = "/landingpage"
+export const LANDINGPAGE = "/"
 export const FOUROFOURPAGE = "/404"

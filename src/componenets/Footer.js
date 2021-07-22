@@ -1,9 +1,10 @@
 import { Container, Segment, List, Image, Header } from "semantic-ui-react"; 
+import logo from "../logo.png"
 
 const Footer = () => (
 <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
     <Container textAlign='center'>
-    <Image centered size='mini' src='/logo.png' />
+    <Image centered circular size='tiny' src= {logo} />
     <List horizontal inverted divided link size='small'>
           <List.Item as='a' href='#'>
             Site Map
