@@ -1,4 +1,4 @@
-import { Container, Segment, List, Image, Header } from "semantic-ui-react";
+import { Container, Segment, List, Image } from "semantic-ui-react";
 import logo from "../logo.png";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../constant/routes";

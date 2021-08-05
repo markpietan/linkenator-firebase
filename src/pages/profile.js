@@ -53,7 +53,7 @@ const Profile = () => {
     document.title = `Linkerator - ${userName}`;
   }, [userName]);
   return (
-    <Container>
+    <Container id= "profilePage">
       <Grid columns="equal" divided id="headerGrid">
         <Grid.Column>
           <Image src={userDetails?.photoURL}></Image>
@@ -61,7 +61,7 @@ const Profile = () => {
         <Grid.Column>
           <div className="center">
             <Header as="h1">{userDetails?.userName}</Header>
-            <Header as="h2">{links?.length} lengths created</Header>
+            <Header as="h2">{links?.length} links created</Header>
           </div>
         </Grid.Column>
 

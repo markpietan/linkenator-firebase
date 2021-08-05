@@ -71,10 +71,31 @@ const NavBar = () => {
             onClick={handleItemClick}
           />
         </Link>
-      ) : null}
+      ) : (
+        <Menu.Item
+          as="li"
+          name="logout"
+          active={activeItem === "logout"}
+          onClick={handleItemClick}
+        />
+      )}
       <Menu.Item id="searchItem">
         <SearchBar></SearchBar>
       </Menu.Item>
+      {loggedInUser === null ? null : (
+        <Link to={`/profile/${loggedInUser.displayName}`}>
+          <Menu.Item
+            as="li"
+            name="user"
+            active={activeItem === "user"}
+            onClick={handleItemClick}
+          >
+            <p style={{ margin: 0 }}>{loggedInUser?.displayName}</p>
+            <Image src={loggedInUser?.photoURL} size="mini" circular />
+          </Menu.Item>
+        </Link>
+      )}
+
       {/* <Menu.Menu position="right">
         {loggedInUser !== null ? (
           <Menu.Item

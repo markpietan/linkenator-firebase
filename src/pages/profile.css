@@ -22,3 +22,14 @@
   justify-content: center;
   margin-bottom: 2rem;
 }
+
+
+#profilePage {
+  margin-top: 4rem;
+}
+
+@media screen and (max-width: 600px) {
+#profilePage h1, #profilePage h2 {
+  font-size: 1.2rem;
+}
+}

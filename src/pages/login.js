@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Form, Icon, Grid, Header, Segment } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import {useHistory} from "react-router-dom"
 import {HOME} from "./../constant/routes"
+
 
 
 const LOGIN = () => {
@@ -23,6 +24,9 @@ const LOGIN = () => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    document.title = `Linkerator - Log-in`;
+  }, []);
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column mobile="10" style={{ maxWidth: 450 }}>
@@ -31,7 +35,7 @@ const LOGIN = () => {
         </Header>
         <Form onSubmit={onSubmit}>
           <Segment stacked>
-            <label htmlFor="e-mail">Sign-Up</label>
+            <label htmlFor="e-mail">Log-In</label>
 
             <Form.Input
               required
@@ -61,7 +65,7 @@ const LOGIN = () => {
             />
 
             <Button type= "submit" color="teal" fluid size="large">
-              Sign Up
+              Log-in
             </Button>
           </Segment>
         </Form>

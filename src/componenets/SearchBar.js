@@ -43,7 +43,7 @@ const SearchBar = () => {
         icon="search"
         placeholder="Search..."
         id="searchBar"
-        size="tiny"
+        size="small"
       />
       {results?.length === 0 ? (
         <>

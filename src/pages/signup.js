@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Icon, Grid, Header, Segment } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import {useHistory} from "react-router-dom"
@@ -51,6 +51,9 @@ const SIGNUP = () => {
       console.error(error);
     }
   };
+  useEffect(() => {
+    document.title = `Linkerator - Sign-up`;
+  }, []);
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column mobile="10" style={{ maxWidth: 450 }}>

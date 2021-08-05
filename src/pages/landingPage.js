@@ -5,13 +5,18 @@ import {
   Header,
 
 } from "semantic-ui-react";
+import {useEffect} from "react"
 import { Link } from "react-router-dom";
 import Feature from "../componenets/Feature";
 import heroImage from "../undraw_Push_notifications_re_t84m.svg";
 import "./landingpage.css";
 import * as ROUTES from "../constant/routes";
 
+
 const LANDINGPAGE = () => {
+  useEffect(() => {
+    document.title = `Linkerator - Home`;
+  }, []);
   return (
     <Container as="main" className="landingPage" fluid>
       <div id="hero">

@@ -4,6 +4,15 @@
   justify-content: space-between;
 }
 
+.ui.inverted.green.menu .item:before {
+    /* background-color: rgba(34,36,38,.1); */
+    background-color: transparent;
+}
+
+#navBar .navBarItem {
+  border: none;
+}
+
 @media screen and (max-width: 600px) {
   .ui.menu .item > .input {
     width: 85%;
@@ -13,8 +22,13 @@
     padding: 0;
     margin: 0;
   }
-  #navBar {
+  #navBar  {
     justify-content: space-evenly;
+    
+  }
+
+  #navBar .navBarItem {
+    border: none;
   }
 }
 
@@ -30,17 +44,26 @@
   #navBar .navBarItem {
     margin: 0;
     padding: 0;
+    border: none;
+  }
   }
   #navBar {
     justify-content: space-evenly;
+    border: none;
   }
-}
+
 
 @media screen and (max-width: 320px) {
   #searchItem {
     display: none;
   }
-  #navBar {
+  #navBar .navBarItem {
     justify-content: space-evenly;
+    border: none;
   }
+  .ui.inverted.green.menu .item:before {
+    /* background-color: rgba(34,36,38,.1); */
+    background-color: transparent;
 }
+  }
+
