@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Button, Form, Icon, Grid, Header, Segment } from "semantic-ui-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {useHistory} from "react-router-dom"
+import { setUser } from "../features/user/userSlice";
+import {HOME} from "../constant/routes"
 
-import LOGIN from "./login";
+
 
 const SIGNUP = () => {
   const [userName, setuserName] = useState("");
   const [passWord, setpassWord] = useState("");
   const [email, setEmail] = useState("");
   const history = useHistory()
+  const dispatch = useDispatch()
   const db = useSelector((state) => {
     return state.firebase.db;
   });
@@ -23,7 +26,7 @@ const SIGNUP = () => {
         displayName: userName,
         photoURL: "https://www.computerhope.com/jargon/g/guest-user.jpg",
       });
-      await db.firestore().collection("users").add({
+    const docRef = await db.firestore().collection("users").add({
         userName: userName,
         email: email,
         userId: createdUser.user.uid,
@@ -31,7 +34,19 @@ const SIGNUP = () => {
         dateCreated: Date.now(),
         favorites: []
       });
-      history.push(LOGIN)
+      await dispatch(
+        setUser({
+          user: {
+            photoURL: "https://www.computerhope.com/jargon/g/guest-user.jpg",
+            displayName: userName,
+            email: email,
+            uid: createdUser.user.uid,
+            docId: docRef.id,
+            favorites: [],
+          },
+        })
+      );
+      history.push(HOME)
     } catch (error) {
       console.error(error);
     }

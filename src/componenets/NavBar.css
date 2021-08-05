@@ -1,4 +1,46 @@
-.navBar {
-align-items: center;
-padding: 0;
+#navBar {
+  align-items: center;
+  padding: 0;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .ui.menu .item > .input {
+    width: 85%;
+  }
+  #searchItem {
+    width: 30%;
+    padding: 0;
+    margin: 0;
+  }
+  #navBar {
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .ui.menu .item > .input {
+    width: 85%;
+  }
+  #searchItem {
+    width: 30%;
+    padding: 0;
+    margin: 0;
+  }
+  #navBar .navBarItem {
+    margin: 0;
+    padding: 0;
+  }
+  #navBar {
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #searchItem {
+    display: none;
+  }
+  #navBar {
+    justify-content: space-evenly;
+  }
 }

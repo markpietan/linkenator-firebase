@@ -17,7 +17,7 @@ export async function addLink(userId, link, userName, userPhoto) {
 
 export async function signOut(history) {
    await firebase.auth().signOut()
-   history.push("/landingpage")
+   history.push("/")
 }
 
 export async function getNextTenLinks(lastLinkDocID) {

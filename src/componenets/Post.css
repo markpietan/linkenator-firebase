@@ -22,10 +22,16 @@
   display: flex;
   width: 50%;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-around;
 }
 
 .post p{
     margin: 0;
 }
+
+@media screen and (max-width: 600px) {
+  .post {
+      width: 95%;
+  }
+ }

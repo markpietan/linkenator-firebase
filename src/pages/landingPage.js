@@ -3,9 +3,7 @@ import {
   Container,
   Image,
   Header,
-  Segment,
-  Ref,
-  Item,
+
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Feature from "../componenets/Feature";
@@ -21,7 +19,7 @@ const LANDINGPAGE = () => {
           <Header as="h1" className="heroTitle">
             Linkenator
           </Header>
-          <Header as="h3">
+          <Header as="h3" className="heroSubtitle">
             Share your favorite links from across the web!
           </Header>
           <Link to={ROUTES.SIGN_UP}>

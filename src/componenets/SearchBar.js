@@ -42,6 +42,8 @@ const SearchBar = () => {
         }}
         icon="search"
         placeholder="Search..."
+        id="searchBar"
+        size="tiny"
       />
       {results?.length === 0 ? (
         <>

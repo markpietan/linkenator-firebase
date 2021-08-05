@@ -97,7 +97,7 @@ const PostList = () => {
     } else {
       copy.sort(leastLikedCompare);
     }
-    setlinkList(copy)
+    setlinkList(copy);
   }
   function mostRecentCompare(a, b) {
     // a is less than b by some ordering criterion
@@ -150,6 +150,8 @@ const PostList = () => {
         dateCreated: Date.now(),
         link: linkText,
         docId,
+        likes: [],
+        userPhoto: loggedInUser.photoURL
       },
       ...linkList,
     ]);
@@ -159,23 +161,26 @@ const PostList = () => {
       <Dimmer page active={loaderVisible}>
         <Loader />
       </Dimmer>
-
-      <Form
-        onSubmit={(e) => {
-          onsubmit();
-        }}
-      >
-        <Input
-          onChange={(e) => {
-            setlinkText(e.target.value);
+      {loggedInUser === null ? null : (
+        <Form
+          onSubmit={(e) => {
+            onsubmit();
           }}
-          value={linkText}
-          type="text"
-          required
-        ></Input>
+        >
+          <Input
+            onChange={(e) => {
+              setlinkText(e.target.value);
+            }}
+            value={linkText}
+            type="text"
+            required
+            placeholder="https://react.semantic-ui.com/usage"
+          ></Input>
 
-        <Button type="submit">Add link</Button>
-      </Form>
+          <Button type="submit">Add link</Button>
+        </Form>
+      )}
+
       <Form id="filter">
         <Form.Field>
           <Radio
@@ -209,7 +214,9 @@ const PostList = () => {
         <>
           {" "}
           {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e, index) => {
-            return <Placeholder key={index} className="placeHolder"></Placeholder>;
+            return (
+              <Placeholder key={index} className="placeHolder"></Placeholder>
+            );
           })}
         </>
       ) : (

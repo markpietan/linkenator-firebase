@@ -5,7 +5,7 @@ import { signOut } from "../services/firebase";
 import { Link, useHistory } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "./NavBar.css";
-import { HOME, LOG_IN, SIGN_UP } from "./../constant/routes";
+import { HOME, LOG_IN, SIGN_UP, LANDINGPAGE } from "./../constant/routes";
 import logo from "../logo.png";
 
 const NavBar = () => {
@@ -21,78 +21,83 @@ const NavBar = () => {
     return store.userLoggedIN.user;
   });
   return (
-    <div>
-      <Menu
-        as="ul"
-        className="navBar"
-        color="green"
-        inverted
-        pointing
-        fixed="top"
-      >
-        <Link to={HOME}>
+    <Menu
+      as="ul"
+      id="navBar"
+      color="green"
+      inverted
+      pointing
+      fixed="top"
+      // widths={3}
+    >
+      <Link to={LANDINGPAGE}>
+        <Menu.Item
+          className="navBarItem"
+          as="li"
+          color="green"
+          active={activeItem === "home"}
+          onClick={handleItemClick}
+        >
+          <Image circular size="mini" src={logo}></Image>
+        </Menu.Item>
+      </Link>
+      <Link to={HOME}>
+        <Menu.Item
+          className="navBarItem"
+          as="li"
+          name="dashboard"
+          active={activeItem === "dashboard"}
+          onClick={handleItemClick}
+        />
+      </Link>
+      {loggedInUser === null ? (
+        <Link to={SIGN_UP}>
           <Menu.Item
+            className="navBarItem"
             as="li"
-            color="green"
-            active={activeItem === "home"}
-            onClick={handleItemClick}
-          >
-            <Image circular size="mini" src={logo}></Image>
-          </Menu.Item>
-        </Link>
-        <Link to={`/profile/${loggedInUser?.displayName}`}>
-          <Menu.Item
-            as="li"
-            name="profile"
-            active={activeItem === "profile"}
+            name="sign up"
+            active={activeItem === "sign up"}
             onClick={handleItemClick}
           />
         </Link>
-        {loggedInUser === null ? (
-          <Link to={SIGN_UP}>
-            <Menu.Item
-              as="li"
-              name="sign up"
-              active={activeItem === "sign up"}
-              onClick={handleItemClick}
-            />
-          </Link>
-        ) : null}
-        {loggedInUser === null ? (
-          <Link to={LOG_IN}>
-            <Menu.Item
-              as="li"
-              name="log in"
-              active={activeItem === "log in"}
-              onClick={handleItemClick}
-            />
-          </Link>
-        ) : null}
-
-        <Menu.Menu position="right">
-          {loggedInUser !== null ? (
-            <Menu.Item
-              as="li"
-              name="logout"
-              active={activeItem === "logout"}
-              onClick={handleItemClick}
-            />
-          ) : null}
-          <Menu.Item>
-            <SearchBar></SearchBar>
-          </Menu.Item>
+      ) : null}
+      {loggedInUser === null ? (
+        <Link to={LOG_IN}>
+          <Menu.Item
+            className="navBarItem"
+            as="li"
+            name="log in"
+            active={activeItem === "log in"}
+            onClick={handleItemClick}
+          />
+        </Link>
+      ) : null}
+      <Menu.Item id="searchItem">
+        <SearchBar></SearchBar>
+      </Menu.Item>
+      {/* <Menu.Menu position="right">
+        {loggedInUser !== null ? (
           <Menu.Item
             as="li"
-            name="user"
-            active={activeItem === "user"}
+            name="logout"
+            active={activeItem === "logout"}
             onClick={handleItemClick}
-          >
-            <p>{loggedInUser?.displayName}</p>
-            <Image src={loggedInUser?.photoURL} size="mini" circular />
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-    </div>
+          />
+        ) : null}
+        <Menu.Item>
+          <SearchBar></SearchBar>
+        </Menu.Item>
+        <Menu.Item
+          as="li"
+          name="user"
+          active={activeItem === "user"}
+          onClick={handleItemClick}
+        >
+          <p>{loggedInUser?.displayName}</p>
+          <Image src={loggedInUser?.photoURL} size="mini" circular />
+        </Menu.Item>
+      </Menu.Menu> */}
+    </Menu>
   );
 };
 

@@ -23,11 +23,11 @@ const peopleArray = [
 ];
 
 const randomLinks = [
-  "www.google.com",
-  "www.facebook.com",
-  "www.bing.com",
-  "www.instagram.com",
-  "www.gmail.com",
+  "https://google.com",
+  "https://facebook.com",
+  "https://bing.com",
+  "https://instagram.com",
+  "https://gmail.com",
 ];
 
 export const seedDateBase = async (firebase) => {

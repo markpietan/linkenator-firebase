@@ -1,4 +1,4 @@
-import { Header, Segment, Ref, Transition } from "semantic-ui-react";
+import { Header, Segment, Ref } from "semantic-ui-react";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 const square = { width: 275, height: 275 };
@@ -9,14 +9,18 @@ const Feature = () => {
   useEffect(() => {
     console.log(inView);
     if (inView) {
-       setVisible(true) 
+      setAnimationClass("fadeLeft");
     }
   }, [inView]);
-  const [visible, setVisible] = useState(true)
+  const [animationClass, setAnimationClass] = useState("");
   return (
     <Ref innerRef={ref}>
-        <Transition mountOnShow visible={visible} animation='scale' duration={500}>
-      <Segment style={{visibility: "hidden"}} circular style={square} className="feature">
+      <Segment
+       
+        circular
+        // style={square}
+        className={`feature ${animationClass}`}
+      >
         <Header as="h2" className="featureTitle">
           Post links
           <Header.Subheader className="featureSubtitle">
@@ -24,7 +28,6 @@ const Feature = () => {
           </Header.Subheader>
         </Header>
       </Segment>
-      </Transition>
     </Ref>
   );
 };

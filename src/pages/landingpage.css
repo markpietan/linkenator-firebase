@@ -1,56 +1,106 @@
 .landingPage {
-margin-top: 3rem
-}
-
-
-.landingPage .ctaButton {
-    /* font-size: 1rem;
-    z-index: 5;
-   position: absolute;
-   top: 35%;
-   width: auto;
-   height: auto;
-   left: 50%;
-   transform: translate(-50%, -50%); */
+  margin-top: 3rem;
 }
 
 .landingPage .heroImage {
-    width: 50%;
+  width: 50%;
 }
-
 
 #hero {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-   
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-#hero .heroTitle{
-    font-size: 4rem;
+#hero .heroTitle {
+  font-size: 4rem;
 }
 
 #featureSection {
-    display:flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #featureSection .featureSubtitle {
-   font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 #featureSection .featureTitle {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 #featureSection .feature {
-    margin-right: auto;
-    display:flex;
-    align-items: center;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  width: 15rem;
+  height: 15rem;
 }
 
-#featureSection .feature:nth-child(2){
-    margin-left: auto;
-    margin-right: 0%;
+#featureSection .feature:nth-child(2) {
+  margin-left: auto;
+  margin-right: 0%;
 }
 
+@keyframes fade1 {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade2 {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeLeft {
+  animation: fade1 1s ease-in;
+  animation-fill-mode: forwards;
+}
+
+.fadeRight {
+  animation: fade2 1s ease-in;
+  animation-fill-mode: forwards;
+}
+
+@media screen and (max-width: 600px) {
+  #featureSection .feature {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .landingPage {
+    margin-top: 5rem;
+  }
+
+  #featureSection .featureSubtitle {
+    font-size: 0.8rem;
+  }
+  #featureSection .featureTitle {
+    font-size: 1.5rem;
+  }
+  #hero .heroTitle {
+    font-size: 1.5rem;
+  }
+  #hero .heroSubtitle {
+    font-size: 0.8rem;
+  }
+  #hero {
+    margin-bottom: 2rem;
+  }
+}
+@media screen and (max-width: 450px) {
+}

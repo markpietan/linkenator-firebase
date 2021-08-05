@@ -19,8 +19,8 @@ const useAuth = () => {
                 displayName: changedUser.displayName,
                 email: changedUser.email,
                 uid: changedUser.uid,
-                docId: response.docId,
-                favorites: response.favorites,
+                docId: response?.docId,
+                favorites: response?.favorites,
               },
             })
           );
